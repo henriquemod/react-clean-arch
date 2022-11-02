@@ -13,6 +13,7 @@
   "author": "Henrique",
   "license": "ISC",
   "devDependencies": {
+    "@types/axios": "0.14.0",
     "@types/faker": "5.5.3",
     "@types/jest": "29.2.1",
     "@types/node": "18.11.9",
@@ -35,5 +36,7 @@
     "typescript": "4.8.4",
     "uuid": "9.0.0"
   },
-  "dependencies": {}
+  "dependencies": {
+    "axios": "1.1.3"
+  }
 }
