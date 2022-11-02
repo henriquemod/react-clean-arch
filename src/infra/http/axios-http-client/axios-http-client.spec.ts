@@ -10,13 +10,12 @@ const makeSut = (): AxiosHttpClient => {
 }
 
 describe('AxiosHttpClient', () => {
-  test('should call Axios with correct URL', async () => {
+  test('should call Axios with correct URL and Verb', async () => {
     const url = faker.internet.url()
-    const axiosSpy = jest.spyOn(mockedAxios, 'post')
     const sut = makeSut()
     await sut.post({
       url
     })
-    expect(axiosSpy).toHaveBeenCalledWith(url)
+    expect(mockedAxios.post).toHaveBeenCalledWith(url)
   })
 })
