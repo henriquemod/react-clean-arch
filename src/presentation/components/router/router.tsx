@@ -1,20 +1,15 @@
-import { Login } from '@/presentation/pages'
 import React from 'react'
 import {
-  createBrowserRouter,
-  RouterProvider
+  RouterProvider,
+  RouterProviderProps
 } from 'react-router-dom'
-import '@/presentation/styles/globals.scss'
 
-const router = createBrowserRouter([
-  {
-    path: '/login',
-    element: <Login />
-  }
-])
+type Props = {
+  routes: RouterProviderProps['router']
+}
 
-const Router = (): JSX.Element => (
-    <RouterProvider router={router} />
+const Router = (props: Props): JSX.Element => (
+    <RouterProvider router={props.routes} />
 )
 
 export default Router
