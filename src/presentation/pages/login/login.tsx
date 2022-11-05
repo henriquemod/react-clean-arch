@@ -6,27 +6,46 @@ import {
 } from '@/presentation/components'
 import React, { useState } from 'react'
 import Styles from './login-styles.scss'
-import Context from '@/presentation/contexts/form/form-context'
-
-type StateProps = {
-  isLoading: boolean
-  errorMessage: string
-}
+import Context, {
+  FormErrorStateProps,
+  FormStateProps,
+  ContextProps
+} from '@/presentation/contexts/form/form-context'
 
 const Login: React.FC = () => {
-  const [state] = useState<StateProps>({
-    isLoading: false,
-    errorMessage: ''
+  const [state] = useState<FormStateProps>({
+    isLoading: false
   })
+
+  const [errorState] = useState<FormErrorStateProps>({
+    email: 'Campo obrigatório',
+    password: 'Campo obrigatório',
+    main: ''
+  })
+
+  const ctx: ContextProps = {
+    state,
+    errorState
+  }
+
   return (
-    <Context.Provider value={state}>
+    <Context.Provider value={ctx}>
       <div className={Styles.login}>
         <Header />
         <form action="" className={Styles.form}>
           <h2>Login</h2>
           <Input type="email" name="email" placeholder="Digite seu e-mail" />
-          <Input type="password" name="password" placeholder="Digite sua senha" />
-          <button data-testid="submit" type="submit" className={Styles.submit} disabled>
+          <Input
+            type="password"
+            name="password"
+            placeholder="Digite sua senha"
+          />
+          <button
+            data-testid="submit"
+            type="submit"
+            className={Styles.submit}
+            disabled
+          >
             Entrar
           </button>
           <span className={Styles.link}>Criar conta</span>
