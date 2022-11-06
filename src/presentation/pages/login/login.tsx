@@ -7,7 +7,8 @@ import {
 import React, { useState, useEffect } from 'react'
 import Styles from './login-styles.scss'
 import Context, {
-  FormStateProps, IFormContext
+  FormStateProps,
+  IFormContext
 } from '@/presentation/contexts/form/form-context'
 import { Validation } from '@/presentation/protocols/validation'
 
@@ -20,18 +21,18 @@ const Login: React.FC<Props> = ({ validation }: Props) => {
     isLoading: false,
     email: '',
     password: '',
-    emailError: 'Campo obrigatório',
-    passwordError: 'Campo obrigatório',
+    emailError: '',
+    passwordError: '',
     mainError: ''
   })
 
   useEffect(() => {
-    validation.validate('email', state.email)
-  }, [state.email])
-
-  useEffect(() => {
-    validation.validate('password', state.password)
-  }, [state.password])
+    setState((prev) => ({
+      ...prev,
+      emailError: validation.validate('email', state.email),
+      passwordError: validation.validate('password', state.password)
+    }))
+  }, [state.email, state.password])
 
   const ctx: IFormContext = {
     state,
