@@ -21,11 +21,11 @@ const Input = (props: Props): JSX.Element => {
   }
 
   const getTitle = (): string => {
-    return error
+    return error || 'Tudo certo!'
   }
 
   const getStatus = (): string => {
-    return '🔴'
+    return error ? '🔴' : '🟢'
   }
 
   return (
