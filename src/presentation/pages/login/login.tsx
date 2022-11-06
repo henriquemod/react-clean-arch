@@ -11,12 +11,14 @@ import Context, {
   IFormContext
 } from '@/presentation/contexts/form/form-context'
 import { Validation } from '@/presentation/protocols/validation'
+import { Authentication } from '@/domain/usecases'
 
 type Props = {
   validation: Validation
+  authentication: Authentication
 }
 
-const Login: React.FC<Props> = ({ validation }: Props) => {
+const Login: React.FC<Props> = ({ validation, authentication }: Props) => {
   const [state, setState] = useState<FormStateProps>({
     isLoading: false,
     email: '',
@@ -40,6 +42,9 @@ const Login: React.FC<Props> = ({ validation }: Props) => {
       ...prev,
       isLoading: true
     }))
+    authentication
+      .auth({ email: state.email, password: state.password })
+      .catch((e) => console.log(e))
   }
 
   const ctx: IFormContext = {
