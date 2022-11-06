@@ -3,6 +3,7 @@ import { createContext } from 'react'
 export type FormStateProps = {
   isLoading: boolean
   email: string
+  password: string
   emailError: string
   passwordError: string
   mainError: string
