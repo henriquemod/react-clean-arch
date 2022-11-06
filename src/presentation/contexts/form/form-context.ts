@@ -1,18 +1,16 @@
 import { createContext } from 'react'
 
-export type FormErrorStateProps = {
-  email: string
-  password: string
-  main: string
-}
-
 export type FormStateProps = {
   isLoading: boolean
+  email: string
+  emailError: string
+  passwordError: string
+  mainError: string
 }
 
-export interface ContextProps {
+export interface IFormContext {
   state: FormStateProps
-  errorState: FormErrorStateProps
+  setState: React.Dispatch<React.SetStateAction<FormStateProps>>
 }
 
 export default createContext(null)

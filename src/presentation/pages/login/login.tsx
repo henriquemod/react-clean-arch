@@ -4,28 +4,33 @@ import {
   Input,
   LoginHeader as Header
 } from '@/presentation/components'
-import React, { useState } from 'react'
+import React, { useState, useEffect } from 'react'
 import Styles from './login-styles.scss'
 import Context, {
-  FormErrorStateProps,
-  FormStateProps,
-  ContextProps
+  FormStateProps, IFormContext
 } from '@/presentation/contexts/form/form-context'
+import { Validation } from '@/presentation/protocols/validation'
 
-const Login: React.FC = () => {
-  const [state] = useState<FormStateProps>({
-    isLoading: false
+type Props = {
+  validation: Validation
+}
+
+const Login: React.FC<Props> = ({ validation }: Props) => {
+  const [state, setState] = useState<FormStateProps>({
+    isLoading: false,
+    email: '',
+    emailError: 'Campo obrigatório',
+    passwordError: 'Campo obrigatório',
+    mainError: ''
   })
 
-  const [errorState] = useState<FormErrorStateProps>({
-    email: 'Campo obrigatório',
-    password: 'Campo obrigatório',
-    main: ''
-  })
+  useEffect(() => {
+    validation.validate({ email: state.email })
+  }, [state.email])
 
-  const ctx: ContextProps = {
+  const ctx: IFormContext = {
     state,
-    errorState
+    setState
   }
 
   return (

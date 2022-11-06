@@ -2,16 +2,16 @@ import React, { useContext } from 'react'
 import { Spinner } from '@/presentation/components'
 import Styles from './form-status-styles.scss'
 import Context, {
-  ContextProps
+  IFormContext
 } from '@/presentation/contexts/form/form-context'
 
 const FormStatus = (): JSX.Element => {
-  const { state, errorState } = useContext<ContextProps>(Context)
+  const { state } = useContext<IFormContext>(Context)
   return (
     <div data-testid="error-wrap" className={Styles.errorWrap}>
       {state.isLoading && <Spinner className={Styles.spinner} />}
-      {errorState.main && (
-        <span className={Styles.error}>{errorState.main}</span>
+      {state.mainError && (
+        <span className={Styles.error}>{state.mainError}</span>
       )}
     </div>
   )
