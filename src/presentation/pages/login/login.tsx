@@ -38,13 +38,15 @@ const Login: React.FC<Props> = ({ validation, authentication }: Props) => {
 
   const handleSubmit = (event: React.FormEvent<HTMLFormElement>): void => {
     event.preventDefault()
-    setState((prev) => ({
-      ...prev,
-      isLoading: true
-    }))
-    authentication
-      .auth({ email: state.email, password: state.password })
-      .catch((e) => console.log(e))
+    if (!state.isLoading) {
+      setState((prev) => ({
+        ...prev,
+        isLoading: true
+      }))
+      authentication
+        .auth({ email: state.email, password: state.password })
+        .catch((e) => console.log(e))
+    }
   }
 
   const ctx: IFormContext = {
