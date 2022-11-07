@@ -1,5 +1,7 @@
 import { InvalidCredentialsError } from '@/domain/errors'
 import { AuthenticationSpy, ValidationStub } from '@/presentation/test'
+import { Router } from 'react-router-dom'
+import { createMemoryHistory } from 'history'
 import {
   cleanup,
   fireEvent,
@@ -21,12 +23,16 @@ type SutParams = {
   validationError: string
 }
 
+const history = createMemoryHistory()
+
 const makeSut = (params?: SutParams): SutTypes => {
   const validationStub = new ValidationStub()
   const authenticationSpy = new AuthenticationSpy()
   validationStub.errorMessage = params?.validationError
   const sut = render(
-    <Login validation={validationStub} authentication={authenticationSpy} />
+    <Router location="/" navigator={history} >
+      <Login validation={validationStub} authentication={authenticationSpy} />
+    </Router>
   )
   return {
     sut,
@@ -186,5 +192,13 @@ describe('Login Component', () => {
         authenticationSpy.account.accessToken
       )
     })
+  })
+
+  test('should go to sign-up page', () => {
+    const { sut } = makeSut()
+    const signup = sut.getByTestId('signup')
+    expect(history.location.pathname).toBe('/')
+    fireEvent.click(signup)
+    expect(history.location.pathname).toBe('/signup')
   })
 })
