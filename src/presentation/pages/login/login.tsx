@@ -1,3 +1,4 @@
+/* eslint-disable @typescript-eslint/no-misused-promises */
 import {
   Footer,
   FormStatus,
@@ -36,18 +37,24 @@ const Login: React.FC<Props> = ({ validation, authentication }: Props) => {
     }))
   }, [state.email, state.password])
 
-  const handleSubmit = (event: React.FormEvent<HTMLFormElement>): void => {
+  const handleSubmit = async (event: React.FormEvent<HTMLFormElement>): Promise<void> => {
     event.preventDefault()
-    if (state.isLoading || state.emailError || state.passwordError) {
-      return
+    try {
+      if (state.isLoading || state.emailError || state.passwordError) {
+        return
+      }
+      setState((prev) => ({
+        ...prev,
+        isLoading: true
+      }))
+      await authentication.auth({ email: state.email, password: state.password })
+    } catch (error) {
+      setState((prev) => ({
+        ...prev,
+        isLoading: false,
+        mainError: error.message
+      }))
     }
-    setState((prev) => ({
-      ...prev,
-      isLoading: true
-    }))
-    authentication
-      .auth({ email: state.email, password: state.password })
-      .catch((e) => console.log(e))
   }
 
   const ctx: IFormContext = {
