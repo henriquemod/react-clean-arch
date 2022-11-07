@@ -38,15 +38,16 @@ const Login: React.FC<Props> = ({ validation, authentication }: Props) => {
 
   const handleSubmit = (event: React.FormEvent<HTMLFormElement>): void => {
     event.preventDefault()
-    if (!state.isLoading) {
-      setState((prev) => ({
-        ...prev,
-        isLoading: true
-      }))
-      authentication
-        .auth({ email: state.email, password: state.password })
-        .catch((e) => console.log(e))
+    if (state.isLoading || state.emailError || state.passwordError) {
+      return
     }
+    setState((prev) => ({
+      ...prev,
+      isLoading: true
+    }))
+    authentication
+      .auth({ email: state.email, password: state.password })
+      .catch((e) => console.log(e))
   }
 
   const ctx: IFormContext = {
@@ -58,7 +59,7 @@ const Login: React.FC<Props> = ({ validation, authentication }: Props) => {
     <Context.Provider value={ctx}>
       <div className={Styles.login}>
         <Header />
-        <form action="" className={Styles.form} onSubmit={handleSubmit}>
+        <form data-testid="form" action="" className={Styles.form} onSubmit={handleSubmit}>
           <h2>Login</h2>
           <Input type="email" name="email" placeholder="Digite seu e-mail" />
           <Input
