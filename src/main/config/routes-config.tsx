@@ -1,10 +1,15 @@
-import { Login } from '@/presentation/pages'
-import React from 'react'
-import { createBrowserRouter } from 'react-router-dom'
+import { createBrowserRouter, RouterProviderProps } from 'react-router-dom'
 
-export const routesConfig = createBrowserRouter([
-  {
-    path: '/login',
-    element: <Login />
-  }
-])
+type Props = {
+  LoginComponent: JSX.Element
+}
+
+export const routesConfig = ({
+  LoginComponent
+}: Props): RouterProviderProps['router'] =>
+  createBrowserRouter([
+    {
+      path: '/login',
+      element: LoginComponent
+    }
+  ])

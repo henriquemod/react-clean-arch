@@ -3,5 +3,11 @@ import ReactDOM from 'react-dom'
 import { Router } from '@/presentation/components'
 import '@/presentation/styles/globals.scss'
 import { routesConfig } from './config/routes-config'
+import { RouterProviderProps } from 'react-router-dom'
+import { makeLogin } from './factories/pages/login/login-factory'
 
-ReactDOM.render(<Router routes={routesConfig} />, document.getElementById('main'))
+const routes: RouterProviderProps['router'] = routesConfig({
+  LoginComponent: makeLogin()
+})
+
+ReactDOM.render(<Router routes={routes} />, document.getElementById('main'))
