@@ -12,7 +12,7 @@ describe('MinLengthValidation', () => {
     expect(error).toEqual(new InvalidFieldError())
   })
 
-  test('should falsy if value is valid', () => {
+  test('should return falsy if value is valid', () => {
     const sut = makeSut()
     const error = sut.validate(faker.random.alphaNumeric(5))
     expect(error).toBeFalsy()
