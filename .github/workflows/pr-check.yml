@@ -30,9 +30,12 @@ jobs:
           yarn eslint 'src/**'
           yarn test:ci
 
+  finish:
+    needs: pr_check
+    runs-on: ubuntu-latest
+    steps:
       - name: Publish Test Coverage - Coveralls
         uses: coverallsapp/github-action@master
         with:
-          git-branch: main
-          github-token: ${{ secrets.COVERALLS_REPO_TOKEN }}
+          github-token: ${{ secrets.COVERALL_TOKEN }}
           parallel-finished: true
