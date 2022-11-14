@@ -2158,7 +2158,7 @@ core-util-is@~1.0.0:
   resolved "https://registry.yarnpkg.com/core-util-is/-/core-util-is-1.0.3.tgz#a6042d3634c2b27e9328f837b965fac83808db85"
   integrity sha512-ZQBvi1DcpJ4GDqanjucZ2Hj3wEO5pZDS89BWbkcrvdxksJorwUDDZamX9ldFkp9aw2lmBDLgkObEA4DWNJ9FYQ==
 
-coveralls@^3.1.1:
+coveralls@3.1.1:
   version "3.1.1"
   resolved "https://registry.yarnpkg.com/coveralls/-/coveralls-3.1.1.tgz#f5d4431d8b5ae69c5079c8f8ca00d64ac77cf081"
   integrity sha512-+dxnG2NHncSD1NrqbSM3dn/lE57O6Qf/koe9+I7c+wzkqRmEvcp0kgJdxKInzYzkICKkFMZsX3Vct3++tsF9ww==
