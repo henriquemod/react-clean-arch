@@ -1,15 +1,15 @@
 name: Check and Test
 
-on:
-  push:
-    branches: ["*"]
-  pull_request:
-    branches: ["*"]
+on: ["push", "pull_request"]
 
 jobs:
   pr_check:
     name: PR Check
     runs-on: ubuntu-latest
+    env:
+      COVERALLS_SERVICE_NAME: CleanArchCoverage
+      COVERALLS_REPO_TOKEN: ${{ secrets.COVERALLS_REPO_TOKEN }}
+      COVERALLS_GIT_BRANCH: main
 
     strategy:
       matrix:
@@ -24,18 +24,8 @@ jobs:
         with:
           node-version: ${{ matrix.node-version }}
 
-      - name: Check And Test
+      - name: Test and publish to Coveralls
         run: |
           yarn --frozen-lockfile
           yarn eslint 'src/**'
-          yarn test:ci
-
-  finish:
-    needs: pr_check
-    runs-on: ubuntu-latest
-    steps:
-      - name: Publish Test Coverage - Coveralls
-        uses: coverallsapp/github-action@master
-        with:
-          github-token: ${{ secrets.COVERALL_TOKEN }}
-          parallel-finished: true
+          yarn test:coveralls
