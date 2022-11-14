@@ -24,8 +24,13 @@ jobs:
         with:
           node-version: ${{ matrix.node-version }}
 
-      - name: Check
+      - name: Check And Test
         run: |
           yarn --frozen-lockfile
           yarn eslint 'src/**'
           yarn test:ci
+
+      - name: Publish Test Coverage - Coveralls
+        uses: coverallsapp/github-action@master
+        with:
+          github-token: ${{ secrets.COVERALL_TOKEN }}
