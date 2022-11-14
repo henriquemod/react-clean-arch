@@ -32,5 +32,9 @@ jobs:
 
       - name: Publish Test Coverage - Coveralls
         uses: coverallsapp/github-action@master
+        env:
+          COVERALLS_SERVICE_NAME: CleanArchCoverage
+          COVERALLS_REPO_TOKEN: ${{ secrets.COVERALLS_REPO_TOKEN }}
+          COVERALLS_GIT_BRANCH: main
         with:
           github-token: ${{ secrets.COVERALL_TOKEN }}
