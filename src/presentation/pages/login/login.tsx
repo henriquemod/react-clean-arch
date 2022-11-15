@@ -1,5 +1,5 @@
 /* eslint-disable @typescript-eslint/no-misused-promises */
-import { Authentication } from '@/domain/usecases'
+import { Authentication, SaveAccessToken } from '@/domain/usecases'
 import {
   Footer,
   FormStatus,
@@ -18,9 +18,10 @@ import Styles from './login-styles.scss'
 type Props = {
   validation: Validation
   authentication: Authentication
+  saveAccessToken: SaveAccessToken
 }
 
-const Login: React.FC<Props> = ({ validation, authentication }: Props) => {
+const Login: React.FC<Props> = ({ validation, authentication, saveAccessToken }: Props) => {
   const navigate = useNavigate()
   const [state, setState] = useState<FormStateProps>({
     isLoading: false,
@@ -50,7 +51,7 @@ const Login: React.FC<Props> = ({ validation, authentication }: Props) => {
         isLoading: true
       }))
       const account = await authentication.auth({ email: state.email, password: state.password })
-      localStorage.setItem('accessToken', account.accessToken)
+      await saveAccessToken.save(account.accessToken)
       navigate('/')
     } catch (error) {
       setState((prev) => ({
