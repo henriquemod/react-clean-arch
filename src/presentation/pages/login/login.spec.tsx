@@ -69,7 +69,7 @@ describe('Login Component', () => {
     const { sut } = makeSut({
       validationError
     })
-    Helper.populateEmailField(sut)
+    Helper.populateField(sut, 'email', faker.internet.email())
     Helper.testStatusForField(sut, 'email', validationError)
   })
 
@@ -84,7 +84,7 @@ describe('Login Component', () => {
 
   test('should show valid email state if Validation succeeds', () => {
     const { sut } = makeSut()
-    Helper.populateEmailField(sut)
+    Helper.populateField(sut, 'email', faker.internet.email())
     Helper.testStatusForField(sut, 'email')
   })
 
@@ -96,7 +96,7 @@ describe('Login Component', () => {
 
   test('should enable submit button if form is valid', () => {
     const { sut } = makeSut()
-    Helper.populateEmailField(sut)
+    Helper.populateField(sut, 'email', faker.internet.email())
     Helper.populatePasswordField(sut)
     Helper.testButtonIsDisabled(sut, 'submit', false)
   })
@@ -125,7 +125,7 @@ describe('Login Component', () => {
   test('should not callAuthentication if form is invalid', () => {
     const validationError = faker.random.words()
     const { sut, authenticationSpy } = makeSut({ validationError })
-    Helper.populateEmailField(sut)
+    Helper.populateField(sut, 'email', faker.internet.email())
     fireEvent.submit(sut.getByTestId('form'))
     expect(authenticationSpy.callsCount).toBe(0)
   })

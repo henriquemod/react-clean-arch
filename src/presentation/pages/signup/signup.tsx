@@ -6,22 +6,36 @@ import {
   LoginHeader as Header
 } from '@/presentation/components'
 import Context from '@/presentation/contexts/form/form-context'
-import React, { useState } from 'react'
+import { Validation } from '@/presentation/protocols/validation'
+import React, { useEffect, useState } from 'react'
 import { Link } from 'react-router-dom'
 import Styles from './signup-styles.scss'
 
-const SignUp: React.FC = () => {
-  const [state] = useState({
+type Props = {
+  validation: Validation
+}
+
+const SignUp: React.FC<Props> = ({ validation }: Props) => {
+  const [state, setState] = useState({
     isLoading: false,
-    nameError: 'Campo obrigatório',
+    name: '',
+    nameError: '',
     emailError: 'Campo obrigatório',
     passwordError: 'Campo obrigatório',
     passwordConfirmationError: 'Campo obrigatório',
     mainError: ''
   })
 
+  useEffect(() => {
+    setState((prev) => ({
+      ...prev,
+      nameError: validation.validate('name', state.name)
+    }))
+  }, [state.name])
+
   const ctx = {
-    state
+    state,
+    setState
   }
 
   return (

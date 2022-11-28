@@ -25,12 +25,13 @@ export const testStatusForField = (
   expect(fieldStatus.textContent).toBe(validationError ? '🔴' : '🟢')
 }
 
-export const populateEmailField = (
+export const populateField = (
   sut: RenderResult,
-  email: string = faker.internet.email()
+  fieldName: string,
+  value: string = faker.random.word()
 ): void => {
-  const emailInput = sut.getByTestId('email')
-  fireEvent.input(emailInput, { target: { value: email } })
+  const input = sut.getByTestId(fieldName)
+  fireEvent.input(input, { target: { value } })
 }
 
 export const populatePasswordField = (
@@ -48,7 +49,7 @@ export const simulateValidSubmit = (
   email: string = faker.internet.email(),
   password: string = faker.internet.password()
 ): void => {
-  populateEmailField(sut, email)
+  populateField(sut, 'email', email)
   populatePasswordField(sut, password)
 
   const submitButton = sut.getByTestId('submit')
