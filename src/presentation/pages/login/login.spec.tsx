@@ -78,7 +78,7 @@ describe('Login Component', () => {
     const { sut } = makeSut({
       validationError
     })
-    Helper.populatePasswordField(sut)
+    Helper.populateField(sut, 'password')
     Helper.testStatusForField(sut, 'password', validationError)
   })
 
@@ -90,14 +90,14 @@ describe('Login Component', () => {
 
   test('should show valid password state if Validation succeeds', () => {
     const { sut } = makeSut()
-    Helper.populatePasswordField(sut)
+    Helper.populateField(sut, 'password')
     Helper.testStatusForField(sut, 'password')
   })
 
   test('should enable submit button if form is valid', () => {
     const { sut } = makeSut()
     Helper.populateField(sut, 'email', faker.internet.email())
-    Helper.populatePasswordField(sut)
+    Helper.populateField(sut, 'password')
     Helper.testButtonIsDisabled(sut, 'submit', false)
   })
 

@@ -34,23 +34,13 @@ export const populateField = (
   fireEvent.input(input, { target: { value } })
 }
 
-export const populatePasswordField = (
-  sut: RenderResult,
-  password: string = faker.internet.email()
-): void => {
-  const passwordInput = sut.getByTestId('password')
-  fireEvent.input(passwordInput, {
-    target: { value: password }
-  })
-}
-
 export const simulateValidSubmit = (
   sut: RenderResult,
   email: string = faker.internet.email(),
   password: string = faker.internet.password()
 ): void => {
   populateField(sut, 'email', email)
-  populatePasswordField(sut, password)
+  populateField(sut, 'password', password)
 
   const submitButton = sut.getByTestId('submit')
   fireEvent.click(submitButton)
